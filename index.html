@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Master - Find Your Perfect Dish</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="logo">✨ Recipe Master</div>
+        <div class="nav-controls">
+            <button id="favoritesBtn" class="nav-btn">
+                <i class="fas fa-heart"></i> Favorites
+            </button>
+            <button id="recentBtn" class="nav-btn">
+                <i class="fas fa-clock"></i> Recent
+            </button>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search" placeholder="Search for delicious recipes... Or type any food name">
+            <button id="searchBtn">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+          <div class="categories-nav">
+              <button class="category-btn active" data-category="all">All Recipes</button>
+              <button class="category-btn" data-category="breakfast">Breakfast</button>
+              <button class="category-btn" data-category="lunch">Lunch</button>
+              <button class="category-btn" data-category="dinner">Dinner</button>
+              <button class="category-btn" data-category="desserts">Desserts</button>
+          </div>
+        <div class="filters">
+            <select id="cuisine">
+                <option value="">All Cuisines</option>
+                <option value="italian">Italian</option>
+                <option value="mexican">Mexican</option>
+                <option value="indian">Indian</option>
+                <option value="chinese">Chinese</option>
+                <option value="japanese">Japanese</option>
+                <option value="thai">Thai</option>
+                <option value="mediterranean">Mediterranean</option>
+            </select>
+            <select id="diet">
+                <option value="">All Diets</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="gluten-free">Gluten Free</option>
+                <option value="ketogenic">Ketogenic</option>
+                <option value="paleo">Paleo</option>
+            </select>
+            <select id="time">
+                <option value="">Any Time</option>
+                <option value="15">15 minutes or less</option>
+                <option value="30">30 minutes or less</option>
+                <option value="60">1 hour or less</option>
+            </select>
+            <button id="advancedFiltersBtn" class="filter-btn">
+                <i class="fas fa-sliders-h"></i> Advanced Filters
+            </button>
+        </div>
+          <div class="advanced-filters" style="display: none;">
+      <div class="filter-header">
+          <h2>Advanced Recipe Filters</h2>
+          <p>Customize your recipe search with these powerful filters</p>
+      </div>
+    
+      <div class="filter-section">
+          <div class="filter-group">
+              <label>Calories Range: <span id="caloriesValue">500 cal</span></label>
+              <input type="range" id="caloriesRange" min="0" max="1000" step="50" value="500">
+              <div class="range-labels">
+                  <span>0 cal</span>
+                  <span>1000 cal</span>
+              </div>
+          </div>
+
+          <div class="filter-group">
+              <h3>Dietary Preferences</h3>
+              <div class="dietary-grid">
+                  <label class="filter-chip">
+                      <input type="checkbox" id="vegetarian">
+                      <span><i class="fas fa-leaf"></i> Vegetarian</span>
+                  </label>
+                  <label class="filter-chip">
+                      <input type="checkbox" id="vegan">
+                      <span><i class="fas fa-seedling"></i> Vegan</span>
+                  </label>
+                  <label class="filter-chip">
+                      <input type="checkbox" id="glutenFree">
+                      <span><i class="fas fa-bread-slice"></i> Gluten Free</span>
+                  </label>
+                  <label class="filter-chip">
+                      <input type="checkbox" id="dairyFree">
+                      <span><i class="fas fa-cheese"></i> Dairy Free</span>
+                  </label>
+                  <label class="filter-chip">
+                      <input type="checkbox" id="highProtein">
+                      <span><i class="fas fa-dumbbell"></i> High Protein</span>
+                  </label>
+              </div>
+          </div>
+
+          <div class="filter-group">
+              <h3>Cooking Time</h3>
+              <div class="time-options">
+                  <button class="time-chip" data-time="15">Quick (15 min)</button>
+                  <button class="time-chip" data-time="30">Medium (30 min)</button>
+                  <button class="time-chip" data-time="60">Long (60 min)</button>
+              </div>
+          </div>
+      </div>
+
+      <div class="filter-actions">
+          <button class="clear-filters">Clear All</button>
+          <button class="apply-filters">Apply Filters</button>
+      </div>
+  </div>
+        <div class="recipes-grid" id="recipesContainer">
+            <!-- Recipe cards will be inserted here -->
+        </div>
+
+        <div id="cookingTimer" class="timer-widget" style="display: none;">
+            <div class="timer-display">
+                <span id="timerMinutes">00</span>:<span id="timerSeconds">00</span>
+            </div>
+            <div class="timer-controls">
+                <button id="startTimer" class="timer-btn"><i class="fas fa-play"></i></button>
+                <button id="pauseTimer" class="timer-btn"><i class="fas fa-pause"></i></button>
+                <button id="resetTimer" class="timer-btn"><i class="fas fa-undo"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <div id="recipeModal" class="modal">
+        <!-- Modal content will be inserted here -->
+    </div>
+
+    <div id="unitConverter" class="converter-widget" style="display: none;">
+        <h3>Unit Converter</h3>
+        <div class="converter-inputs">
+            <input type="number" id="convertAmount">
+            <select id="convertFrom">
+                <option value="oz">Ounces</option>
+                <option value="lb">Pounds</option>
+                <option value="cup">Cups</option>
+            </select>
+            <span>to</span>
+            <select id="convertTo">
+                <option value="g">Grams</option>
+                <option value="kg">Kilograms</option>
+                <option value="ml">Milliliters</option>
+            </select>
+        </div>
+        <button id="convertBtn">Convert</button>
+        <div id="convertResult"></div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Recipe Master</h4>
+                <p>Find and save your favorite recipes</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#" id="showFavorites">Favorites</a>
+                <a href="#" id="showRecent">Recently Viewed</a>
+                <a href="#" id="showNotes">My Notes</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="config.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

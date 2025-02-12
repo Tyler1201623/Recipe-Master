@@ -1,0 +1,13 @@
+use spoonacular api key 
+
+
+make cutting edge program for all this now 
+
+respsonive on all devices 
+
+
+no server
+
+index.html in the route 
+
+
