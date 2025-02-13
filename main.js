@@ -1,6 +1,6 @@
 import { config } from './config.js';
-const { API_KEY, BASE_URL } = config;
-
+const API_KEY = '528d47657a174064992e9b1bc685695a';
+const { BASE_URL } = config;
 /* ------------------------------------------
    Cooking Timer
 ------------------------------------------- */
