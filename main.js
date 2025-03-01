@@ -906,11 +906,44 @@ class RecipeMaster {
     setupThemeToggle() {
         const themeToggle = document.querySelector('.theme-toggle');
         if (themeToggle) {
+            // Check system preference
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+            
+            // Set initial theme
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark-mode');
+            }
+            
             themeToggle.addEventListener('click', () => {
                 document.body.classList.toggle('dark-mode');
-                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                
+                // Update UI elements for current theme
+                this.updateThemeSpecificUI(isDark);
             });
         }
+    }
+
+    updateThemeSpecificUI(isDark) {
+        // Update modal backgrounds
+        const modals = document.querySelectorAll('.modal-content');
+        modals.forEach(modal => {
+            modal.style.background = isDark ? 'var(--dark-card)' : 'var(--card-bg)';
+        });
+        
+        // Update inputs and selects
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.style.background = isDark ? 'var(--dark-input)' : 'var(--card-bg)';
+        });
+        
+        // Update filter chips
+        const filterChips = document.querySelectorAll('.filter-chip');
+        filterChips.forEach(chip => {
+            chip.style.background = isDark ? 'var(--dark-input)' : 'var(--card-bg)';
+        });
     }
 
     async searchRecipes() {
